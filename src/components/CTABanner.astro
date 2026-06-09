@@ -1,0 +1,44 @@
+---
+const { title, buttonLabel, buttonHref } = Astro.props;
+---
+<section class="cta-banner">
+  <div class="container cta-banner__inner">
+    <h2 class="cta-banner__title">{title}</h2>
+    <a href={buttonHref} class="btn cta-banner__btn">{buttonLabel}</a>
+  </div>
+</section>
+
+<style>
+  .cta-banner {
+    background-color: var(--color-primary);
+    padding: 4.5rem 0;
+  }
+
+  .cta-banner__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .cta-banner__title {
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .cta-banner__btn {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+    font-size: 1rem;
+    padding: 0.875rem 2.5rem;
+  }
+
+  .cta-banner__btn:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+</style>

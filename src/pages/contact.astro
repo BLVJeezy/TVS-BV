@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const contactItems = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+    label: 'Telefoon',
+    value: '+32 488 45 38 16',
+    href: 'tel:+32488453816',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+    label: 'E-mail',
+    value: 'tvs.atyourservice@gmail.com',
+    href: 'mailto:tvs.atyourservice@gmail.com',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+    label: 'Adres',
+    value: 'Panovenstraat 1, 3500 Hasselt',
+    href: null,
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    label: 'Openingstijden',
+    value: 'Maandag – Zaterdag, 6:00 – 18:00',
+    href: null,
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+    label: 'Instagram',
+    value: '@thomas.taverniers',
+    href: 'https://www.instagram.com/thomas.taverniers',
+  },
+];
+---
+<BaseLayout
+  title="Contact – TVS BV | Offerte aanvragen Hasselt"
+  description="Neem contact op met TVS BV voor een vrijblijvende offerte of advies. Bereikbaar van maandag tot zaterdag."
+  canonical="https://tvs-bv.be/contact"
+>
+  <Hero
+    title="Contacteer ons"
+    subtitle="Vrijblijvende offerte of advies op maat"
+  />
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-layout__form">
+          <h2 class="section-title">Stuur ons een bericht</h2>
+          <p class="contact-intro">Vul het formulier in en wij nemen zo snel mogelijk contact met u op voor een vrijblijvende offerte of advies.</p>
+          <ContactForm />
+        </div>
+
+        <aside class="contact-layout__info">
+          <h2 class="section-title">Onze contactgegevens</h2>
+          <div class="contact-cards">
+            {contactItems.map(item => (
+              <div class="contact-card">
+                <div class="contact-card__icon" aria-hidden="true" set:html={item.icon} />
+                <div class="contact-card__content">
+                  <strong class="contact-card__label">{item.label}</strong>
+                  {item.href ? (
+                    <a href={item.href} class="contact-card__value contact-card__link" target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span class="contact-card__value">{item.value}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Maps -->
+  <section class="map-section" aria-label="Locatie TVS BV op kaart">
+    <iframe
+      src="https://maps.google.com/maps?width=100%25&height=600&hl=nl&q=Panovenstraat%201,%203500%20Hasselt+(TVS%20BV)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+      width="100%"
+      height="450"
+      style="border:0;"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="TVS BV locatie op Google Maps – Panovenstraat 1, 3500 Hasselt"
+    ></iframe>
+  </section>
+
+  <CTABanner
+    title="Liever direct bellen?"
+    buttonLabel="+32 488 45 38 16"
+    buttonHref="tel:+32488453816"
+  />
+</BaseLayout>
+
+<style>
+  .contact-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: flex-start;
+  }
+
+  .contact-intro {
+    font-size: 0.95rem;
+    color: var(--color-grey-text);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .contact-layout__form .section-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-layout__info .section-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-mid);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .contact-card__icon {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-card__icon :global(svg) {
+    stroke: var(--color-accent);
+  }
+
+  .contact-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .contact-card__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-grey-text);
+  }
+
+  .contact-card__value {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .contact-card__link {
+    color: var(--color-accent);
+    transition: color var(--transition);
+  }
+
+  .contact-card__link:hover {
+    color: var(--color-primary);
+  }
+
+  .map-section {
+    display: block;
+    line-height: 0;
+  }
+
+  .map-section iframe {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

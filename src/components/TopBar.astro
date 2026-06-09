@@ -1,0 +1,77 @@
+---
+---
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__left">
+      <a href="tel:+32488453816" class="topbar__item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        +32 488 45 38 16
+      </a>
+      <a href="mailto:tvs.atyourservice@gmail.com" class="topbar__item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        tvs.atyourservice@gmail.com
+      </a>
+    </div>
+    <div class="topbar__right">
+      <span class="topbar__item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Ma – Za, 6:00 – 18:00
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .topbar {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+
+  .topbar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .topbar__left {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .topbar__item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-white);
+    opacity: 0.9;
+    transition: opacity var(--transition);
+  }
+
+  .topbar__item:hover {
+    opacity: 1;
+  }
+
+  .topbar__right {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .topbar__right {
+      display: none;
+    }
+  }
+</style>

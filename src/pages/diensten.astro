@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const services = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-2.16Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-2.16Z"/></svg>`,
+    title: 'Luchtverwarming',
+    description: 'TVS BV is uw specialist voor de plaatsing, het onderhoud en de herstelling van luchtverwarmingssystemen in Limburg. Met unieke expertise in deze technologie bieden wij een volledig ontzorgd traject: van advies en offerte tot installatie en nazorg. Ideaal voor woningen, bedrijven en industriële toepassingen.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 11h7"/></svg>`,
+    title: 'Airco',
+    description: 'Wij installeren airconditioningsystemen van de topmerken LG, Daikin, Mitsubishi, Samsung en GREE. Of het nu gaat om een split-unit voor één ruimte of een multi-split systeem voor uw volledige woning of kantoor — wij adviseren u over de beste oplossing en zorgen voor een vakkundige installatie.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>`,
+    title: 'Ventilatie',
+    description: 'Een goed ventilatiesysteem is essentieel voor een gezond binnenklimaat. Wij plaatsen systemen type C (mechanische afvoer) en type D (gebalanceerde ventilatie met warmteterugwinning). Zo zorgen wij voor frisse lucht in uw woning terwijl het energieverbruik beperkt blijft.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"/><path d="M18 9a3 3 0 0 0-3-3H6"/><path d="M18 18a3 3 0 0 1-3 3H6"/><path d="M18 13H6"/></svg>`,
+    title: 'Sanitair & Badkamer',
+    description: 'Van een complete badkamerrenovatie tot de installatie van sanitair in nieuwbouw — TVS BV verzorgt het van begin tot einde. Wij plaatsen douches, bad, toilet, wastafel en alle aansluitingen. Kwaliteit en esthetiek gaan bij ons hand in hand. Eigen merkkeuze of op aanraden van onze specialist.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: 'Elektriciteit (AREI)',
+    description: 'TVS BV voert volledige elektrische installaties uit conform de AREI-normen. Zowel bij nieuwbouw als renovatie zorgen wij voor een veilige en toekomstgerichte elektrische installatie. Inclusief aanvraag en opvolging van de keuring door een erkend organisme.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10C7 21 3 17 3 12V6z"/></svg>`,
+    title: 'Warmtepomp',
+    description: 'Warmtepompen zijn de toekomst van duurzame verwarming. Wij plaatsen lucht-water en lucht-lucht warmtepompen, alsook warmtepompboilers voor sanitair warm water. U profiteert van lagere energiekosten, verminderde CO₂-uitstoot en mogelijke premies en subsidies.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
+    title: 'Vloerverwarming',
+    description: 'Vloerverwarming zorgt voor een aangenaam en gelijkmatig verwarmde ruimte zonder zichtbare radiatoren. Wij installeren zowel natte als droge vloerverwarmingssystemen, geschikt voor renovatie én nieuwbouw. Optimaal te combineren met een warmtepomp voor maximale efficiëntie.',
+    href: '/contact',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+    title: "Bewakingscamera's",
+    description: "Beveilig uw woning of bedrijf met een professioneel camerasysteem. Wij installeren systemen van Reolink en UniFi Protect — betrouwbare merken met uitstekende beeldkwaliteit. Inclusief configuratie van remote viewing zodat u altijd en overal uw eigendom in de gaten kunt houden.",
+    href: '/contact',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Contact',
+    text: 'U neemt contact op via telefoon, e-mail of het contactformulier. Wij antwoorden snel en plannen een afspraak op maat.',
+  },
+  {
+    number: '02',
+    title: 'Offerte',
+    text: 'Na een inspectie ter plaatse stellen wij een duidelijke, transparante offerte op zonder verborgen kosten.',
+  },
+  {
+    number: '03',
+    title: 'Installatie',
+    text: 'Ons team voert de werkzaamheden vakkundig en netjes uit, met respect voor uw woning en planning.',
+  },
+  {
+    number: '04',
+    title: 'Oplevering',
+    text: 'We leveren het project op, testen alles uitvoerig en geven toelichting bij de werking. Uw tevredenheid staat voorop.',
+  },
+];
+---
+<BaseLayout
+  title="Diensten – TVS BV | HVAC, Sanitair & Elektriciteit Hasselt"
+  description="Ontdek alle diensten van TVS BV: luchtverwarming, airco, ventilatie, sanitair, elektriciteit, warmtepomp en meer in Hasselt."
+  canonical="https://tvs-bv.be/diensten"
+>
+  <Hero
+    title="Onze Diensten"
+    subtitle="Totaaltechnieken voor uw woning of project"
+  />
+
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Wat wij voor u doen</h2>
+        <p class="section-subtitle">Een volledig pakket aan technische diensten — professioneel uitgevoerd van A tot Z.</p>
+      </div>
+      <div class="services-grid">
+        {services.map(service => (
+          <ServiceCard
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+            href={service.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Hoe werken wij?</h2>
+        <p class="section-subtitle">Een eenvoudig en transparant proces van eerste contact tot oplevering.</p>
+      </div>
+      <div class="process-steps">
+        {steps.map((step, i) => (
+          <div class="process-step">
+            <div class="process-step__number" aria-hidden="true">{step.number}</div>
+            <h3 class="process-step__title">{step.title}</h3>
+            <p class="process-step__text">{step.text}</p>
+            {i < steps.length - 1 && (
+              <div class="process-step__arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Interesse in een van onze diensten?"
+    buttonLabel="Vraag een offerte aan"
+    buttonHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .services-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .process-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-grey-light);
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .process-step {
+    position: relative;
+    padding: 2rem 1.5rem;
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0.75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .process-step__number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .process-step__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .process-step__text {
+    font-size: 0.875rem;
+    color: var(--color-grey-text);
+    line-height: 1.6;
+  }
+
+  .process-step__arrow {
+    position: absolute;
+    right: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-accent);
+    z-index: 1;
+  }
+
+  @media (max-width: 1100px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .process-steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .process-step__arrow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

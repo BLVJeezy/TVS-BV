@@ -1,0 +1,180 @@
+---
+import TopBar from './TopBar.astro';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/over-ons', label: 'Over ons' },
+  { href: '/diensten', label: 'Diensten' },
+  { href: '/realisaties', label: 'Realisaties' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+<header class="site-header" id="site-header">
+  <TopBar />
+  <div class="header__bar">
+    <div class="container header__inner">
+      <a href="/" class="header__logo" aria-label="TVS BV – naar startpagina">
+        <img src="/images/logo.svg" alt="TVS BV logo" width="140" height="48" />
+      </a>
+
+      <nav class="header__nav" id="main-nav" aria-label="Hoofdnavigatie">
+        <ul class="header__nav-list">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['header__nav-link', { 'is-active': currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <a href="/contact" class="btn btn-primary header__cta">Vraag offerte aan</a>
+        <button class="header__hamburger" id="hamburger-btn" aria-label="Menu openen" aria-expanded="false" aria-controls="main-nav">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="hamburger-icon-open">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="hamburger-icon-close" style="display:none">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('main-nav');
+  const iconOpen = document.getElementById('hamburger-icon-open');
+  const iconClose = document.getElementById('hamburger-icon-close');
+
+  window.addEventListener('scroll', () => {
+    if (header) {
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    }
+  });
+
+  btn?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (iconOpen) iconOpen.style.display = isOpen ? 'none' : '';
+    if (iconClose) iconClose.style.display = isOpen ? '' : 'none';
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-white);
+  }
+
+  .header__bar {
+    border-bottom: 1px solid var(--color-grey-mid);
+    transition: box-shadow var(--transition);
+  }
+
+  :global(.site-header.is-scrolled) .header__bar {
+    box-shadow: var(--shadow);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 72px;
+  }
+
+  .header__logo img {
+    height: 44px;
+    width: auto;
+  }
+
+  .header__nav-list {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  .header__nav-link {
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    transition: color var(--transition), background-color var(--transition);
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link.is-active {
+    color: var(--color-accent);
+    background-color: var(--color-grey-light);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .header__hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    padding: 0.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .header__hamburger {
+      display: flex;
+      align-items: center;
+    }
+
+    .header__cta {
+      display: none;
+    }
+
+    .header__nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: var(--color-white);
+      border-bottom: 1px solid var(--color-grey-mid);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.5rem;
+    }
+
+    .header__nav.is-open {
+      display: block;
+    }
+
+    .header__nav-list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .header__nav-link {
+      display: block;
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+    }
+  }
+</style>

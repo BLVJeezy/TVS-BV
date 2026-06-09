@@ -1,0 +1,310 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import StatCounter from '../components/StatCounter.astro';
+import CTABanner from '../components/CTABanner.astro';
+import TeamCard from '../components/TeamCard.astro';
+
+const specialiteiten = [
+  'Badkamerrenovatie van A tot Z',
+  'Vloerverwarming',
+  'Keuring en plaatsing gaswandketels',
+  'Volledige sanitaire installaties',
+  'Luchtverwarming (uniek in Limburg)',
+  'Ventilatie systeem C en D',
+  'Airco: LG, Daikin, Mitsubishi, Samsung, GREE',
+  'Elektrische projecten (AREI)',
+  'Warmtepompen en warmtepompboilers',
+  'CV-verwarming',
+  "Bewakingscamera's: Reolink, UniFi Protect",
+  'Maatwerk voor elk project',
+];
+
+const pillars = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10C7 21 3 17 3 12V6z"/></svg>`,
+    title: 'Veiligheid voorop',
+    text: 'Alle installaties worden uitgevoerd conform de geldende normen (AREI, gaswetgeving) en grondig getest voor oplevering. Uw veiligheid is onze prioriteit.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    title: 'Kwaliteit gegarandeerd',
+    text: 'Wij werken uitsluitend met materialen van erkende fabrikanten en merken. Elke installatie krijgt onze volledige aandacht en wordt afgewerkt tot in de puntjes.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    title: 'Vakmanschap',
+    text: 'Met meer dan 10 jaar ervaring brengen wij vakkennis en precisie naar elk project. Van kleine reparaties tot volledige renovaties.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: '24/7 Service',
+    text: 'Altijd bereikbaar voor uw vragen, planning en dringende interventies. Wij staan voor u klaar wanneer u ons nodig heeft.',
+  },
+];
+
+const team = [
+  {
+    photo: '/images/team/team-memb1.jpg',
+    alt: 'Thomas Taverniers – Eigenaar TVS BV',
+    name: 'Thomas Taverniers',
+    title: 'Eigenaar',
+  },
+  {
+    photo: '/images/team/team-memb2.jpg',
+    alt: 'David Safi – Technisch Engineering TVS BV',
+    name: 'David Safi',
+    title: 'Technisch Engineering',
+  },
+];
+---
+<BaseLayout
+  title="Over ons – TVS BV"
+  description="Leer meer over TVS BV, uw betrouwbare partner voor totaaltechnieken in Hasselt en Limburg."
+  canonical="https://tvs-bv.be/over-ons"
+>
+  <Hero
+    title="Over TVS BV"
+    subtitle="Jong bedrijf, sterke expertise"
+  />
+
+  <!-- Ons verhaal -->
+  <section class="story-section">
+    <div class="container story__inner">
+      <div class="story__text">
+        <h2 class="section-title">Ons verhaal</h2>
+        <p>TVS BV is een jong maar sterk bedrijf uit Sint Lambrechts Herk (Hasselt) in Limburg. Met meer dan 10 jaar ervaring zijn wij uw betrouwbare partner voor totaaltechnieken. Wij combineren vakmanschap met een klantgerichte aanpak en werken uitsluitend met hoogwaardige materialen van erkende merken.</p>
+        <p>Onze kracht ligt in de brede expertise: van luchtverwarming en airco over sanitair en elektriciteit tot warmtepompen en bewakingscamera's. Elk project, groot of klein, behandelen wij met dezelfde toewijding en precisie.</p>
+        <p>Wij zijn trots op onze reputatie als totaaltechnicus in Hasselt en ruim Limburg. Klanten kiezen voor TVS BV omdat wij betrouwbaar, eerlijk en vakbekwaam zijn.</p>
+        <a href="/contact" class="btn btn-primary story__cta">Neem contact op</a>
+      </div>
+      <div class="story__image-wrap">
+        <img
+          src="/images/team/team-memb1.jpg"
+          alt="Thomas Taverniers – eigenaar van TVS BV aan het werk"
+          loading="lazy"
+          width="580"
+          height="480"
+          class="story__image"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Specialiteiten -->
+  <section class="specialities-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Onze specialiteiten</h2>
+        <p class="section-subtitle">Een volledig pakket aan technische diensten voor uw woning of project.</p>
+      </div>
+      <div class="specialities-grid">
+        {specialiteiten.map(item => (
+          <div class="speciality-item">
+            <span class="speciality-check" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Pillars -->
+  <section class="pillars-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Onze waarden</h2>
+        <p class="section-subtitle">De pijlers waarop TVS BV is gebouwd.</p>
+      </div>
+      <div class="pillars-grid">
+        {pillars.map(p => (
+          <div class="pillar-item">
+            <div class="pillar-item__icon" aria-hidden="true" set:html={p.icon} />
+            <h3 class="pillar-item__title">{p.title}</h3>
+            <p class="pillar-item__text">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <StatCounter />
+
+  <!-- Team -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Ons team</h2>
+        <p class="section-subtitle">De mensen achter TVS BV.</p>
+      </div>
+      <div class="team-grid">
+        {team.map(member => (
+          <TeamCard
+            photo={member.photo}
+            alt={member.alt}
+            name={member.name}
+            title={member.title}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Heeft u vragen?"
+    buttonLabel="Neem contact op"
+    buttonHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .story-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .story__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .story__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .story__text p {
+    color: var(--color-grey-text);
+    line-height: 1.8;
+    font-size: 0.975rem;
+  }
+
+  .story__cta {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .story__image-wrap {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(15, 45, 94, 0.15);
+  }
+
+  .story__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .specialities-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-grey-light);
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .specialities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .speciality-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    font-size: 0.925rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .speciality-check {
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .pillars-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-white);
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .pillar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius);
+    background-color: var(--color-grey-light);
+    border-bottom: 3px solid var(--color-accent);
+  }
+
+  .pillar-item__icon :global(svg) {
+    stroke: var(--color-accent);
+  }
+
+  .pillar-item__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .pillar-item__text {
+    font-size: 0.875rem;
+    color: var(--color-grey-text);
+    line-height: 1.65;
+  }
+
+  .team-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    max-width: 720px;
+  }
+
+  @media (max-width: 900px) {
+    .story__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .specialities-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pillars-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+    }
+  }
+</style>

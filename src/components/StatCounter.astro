@@ -1,0 +1,105 @@
+---
+const stats = [
+  { value: '500+', label: 'Projecten afgerond', numeric: 500 },
+  { value: '10+', label: 'Jaar ervaring', numeric: 10 },
+  { value: '100%', label: 'Tevreden klanten', numeric: 100 },
+  { value: '24/7', label: 'Service beschikbaar', numeric: null },
+];
+---
+<section class="stat-counter" aria-label="Statistieken">
+  <div class="container stat-counter__grid">
+    {stats.map(stat => (
+      <div class="stat-counter__item">
+        <span
+          class="stat-counter__value"
+          data-target={stat.numeric !== null ? stat.numeric : null}
+          data-suffix={stat.value.replace(/[0-9]/g, '')}
+        >
+          {stat.value}
+        </span>
+        <span class="stat-counter__label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const items = document.querySelectorAll('.stat-counter__value[data-target]');
+
+  const animateCount = (el) => {
+    const target = parseInt(el.getAttribute('data-target'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    if (isNaN(target)) return;
+    const duration = 1800;
+    const start = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  items.forEach(el => observer.observe(el));
+</script>
+
+<style>
+  .stat-counter {
+    background-color: var(--color-primary);
+    padding: 4rem 0;
+  }
+
+  .stat-counter__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-counter__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-counter__value {
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .stat-counter__label {
+    font-size: 0.9rem;
+    color: var(--color-grey-light);
+    opacity: 0.85;
+  }
+
+  @media (max-width: 700px) {
+    .stat-counter__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .stat-counter__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,223 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__col footer__brand">
+      <a href="/" aria-label="TVS BV – startpagina">
+        <img src="/images/logo.svg" alt="TVS BV logo" width="130" height="44" class="footer__logo" />
+      </a>
+      <p class="footer__tagline">Uw totaaltechnicus in Hasselt &amp; Limburg</p>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/thomas.taverniers" target="_blank" rel="noopener noreferrer" aria-label="Instagram @thomas.taverniers" class="footer__social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          @thomas.taverniers
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Navigatie</h3>
+      <ul class="footer__links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/over-ons">Over ons</a></li>
+        <li><a href="/diensten">Diensten</a></li>
+        <li><a href="/realisaties">Realisaties</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Diensten</h3>
+      <ul class="footer__links">
+        <li><a href="/diensten">Luchtverwarming</a></li>
+        <li><a href="/diensten">Airco</a></li>
+        <li><a href="/diensten">Ventilatie</a></li>
+        <li><a href="/diensten">Sanitair</a></li>
+        <li><a href="/diensten">Elektriciteit</a></li>
+        <li><a href="/diensten">Warmtepomp</a></li>
+        <li><a href="/diensten">Vloerverwarming</a></li>
+        <li><a href="/diensten">Bewakingscamera's</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Contact</h3>
+      <ul class="footer__contact-list">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <a href="tel:+32488453816">+32 488 45 38 16</a>
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <a href="mailto:tvs.atyourservice@gmail.com">tvs.atyourservice@gmail.com</a>
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>Panovenstraat 1, 3500 Hasselt</span>
+        </li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Ma – Za, 6:00 – 18:00</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>&copy; {currentYear} TVS BV – BE1018.765.660. Alle rechten voorbehouden.</p>
+      <p>Panovenstraat 1, 3500 Hasselt</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding-top: 4rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__logo {
+    filter: brightness(0) invert(1);
+    margin-bottom: 1rem;
+  }
+
+  .footer__tagline {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .footer__social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+  }
+
+  .footer__social-link:hover {
+    opacity: 1;
+  }
+
+  .footer__heading {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    margin-bottom: 1rem;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer__links a {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+  }
+
+  .footer__links a:hover {
+    opacity: 1;
+  }
+
+  .footer__contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer__contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    opacity: 0.85;
+  }
+
+  .footer__contact-list li svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .footer__contact-list a {
+    transition: opacity var(--transition);
+  }
+
+  .footer__contact-list a:hover {
+    opacity: 1;
+  }
+
+  .footer__bottom {
+    padding: 1.25rem 0;
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer__bottom-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

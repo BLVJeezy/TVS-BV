@@ -1,0 +1,321 @@
+---
+const categories = [
+  { key: 'alles', label: 'Alles' },
+  { key: 'luchtverwarming', label: 'Luchtverwarming' },
+  { key: 'ventilatie', label: 'Ventilatie' },
+  { key: 'airco', label: 'Airco' },
+  { key: 'elektriciteit', label: 'Elektriciteit' },
+  { key: 'warmtepomp', label: 'Warmtepomp' },
+  { key: 'sanitair', label: 'Sanitair' },
+  { key: 'camera', label: 'Camera' },
+];
+
+const images = [
+  ...Array.from({ length: 7 }, (_, i) => ({
+    src: `/images/gallery/lucht${i + 1}.jpg`,
+    alt: `Luchtverwarming installatie ${i + 1} – TVS BV Hasselt`,
+    category: 'luchtverwarming',
+  })),
+  {
+    src: '/images/gallery/blur_venti.jpg',
+    alt: 'Ventilatie systeem installatie – TVS BV Hasselt',
+    category: 'ventilatie',
+  },
+  ...Array.from({ length: 23 }, (_, i) => ({
+    src: `/images/gallery/airco${i + 1}.jpg`,
+    alt: `Airco installatie ${i + 1} – TVS BV Hasselt`,
+    category: 'airco',
+  })),
+  {
+    src: '/images/gallery/blur_elek.jpg',
+    alt: 'Elektrische installatie – TVS BV Hasselt',
+    category: 'elektriciteit',
+  },
+  {
+    src: '/images/gallery/blur_warmtepomp.jpg',
+    alt: 'Warmtepomp installatie – TVS BV Hasselt',
+    category: 'warmtepomp',
+  },
+  ...Array.from({ length: 39 }, (_, i) => ({
+    src: `/images/gallery/san${i + 1}.jpg`,
+    alt: `Sanitaire installatie ${i + 1} – TVS BV Hasselt`,
+    category: 'sanitair',
+  })),
+  { src: '/images/gallery/cam1.jpg', alt: 'Bewakingscamera installatie 1 – TVS BV Hasselt', category: 'camera' },
+  { src: '/images/gallery/cam2.jpg', alt: 'Bewakingscamera installatie 2 – TVS BV Hasselt', category: 'camera' },
+];
+---
+<div class="gallery">
+  <div class="gallery__filters" role="group" aria-label="Filter op categorie">
+    {categories.map(cat => (
+      <button
+        class:list={['gallery__filter-btn', { 'is-active': cat.key === 'alles' }]}
+        data-category={cat.key}
+        type="button"
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  <div class="gallery__grid" id="gallery-grid">
+    {images.map((img, i) => (
+      <div class="gallery__item" data-category={img.category}>
+        <img
+          src={img.src}
+          alt={img.alt}
+          loading="lazy"
+          width="600"
+          height="450"
+          class="gallery__img"
+          data-index={i}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotogalerij vergroting" hidden>
+  <button class="lightbox__close" id="lightbox-close" aria-label="Sluiten">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <button class="lightbox__prev" id="lightbox-prev" aria-label="Vorige foto">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <div class="lightbox__content">
+    <img src="" alt="" id="lightbox-img" class="lightbox__image" />
+  </div>
+  <button class="lightbox__next" id="lightbox-next" aria-label="Volgende foto">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const filterBtns = document.querySelectorAll('.gallery__filter-btn');
+  const items = document.querySelectorAll('.gallery__item');
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+
+  let visibleImages = [];
+  let currentIndex = 0;
+
+  const getVisible = () =>
+    Array.from(document.querySelectorAll('.gallery__item:not([hidden]) .gallery__img'));
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const cat = btn.dataset.category;
+      items.forEach(item => {
+        if (cat === 'alles' || item.dataset.category === cat) {
+          item.removeAttribute('hidden');
+        } else {
+          item.setAttribute('hidden', '');
+        }
+      });
+    });
+  });
+
+  const openLightbox = (imgs, idx) => {
+    visibleImages = imgs;
+    currentIndex = idx;
+    showImage(currentIndex);
+    if (lightbox) lightbox.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    if (lightbox) lightbox.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  };
+
+  const showImage = (idx) => {
+    const img = visibleImages[idx];
+    if (lbImg && img) {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+    }
+  };
+
+  document.getElementById('gallery-grid')?.addEventListener('click', e => {
+    const target = e.target.closest('.gallery__img');
+    if (!target) return;
+    const imgs = getVisible();
+    const idx = imgs.indexOf(target);
+    if (idx !== -1) openLightbox(imgs, idx);
+  });
+
+  lbClose?.addEventListener('click', closeLightbox);
+  lightbox?.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  lbPrev?.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+    showImage(currentIndex);
+  });
+
+  lbNext?.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % visibleImages.length;
+    showImage(currentIndex);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (lightbox?.hasAttribute('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+      showImage(currentIndex);
+    }
+    if (e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % visibleImages.length;
+      showImage(currentIndex);
+    }
+  });
+</script>
+
+<style>
+  .gallery__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .gallery__filter-btn {
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--color-grey-mid);
+    background-color: var(--color-white);
+    color: var(--color-text);
+    transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+  }
+
+  .gallery__filter-btn:hover,
+  .gallery__filter-btn.is-active {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .gallery__item {
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: var(--color-grey-light);
+    cursor: pointer;
+  }
+
+  .gallery__item[hidden] {
+    display: none;
+  }
+
+  .gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease, opacity var(--transition);
+  }
+
+  .gallery__item:hover .gallery__img {
+    transform: scale(1.05);
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(10, 31, 66, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  .lightbox__content {
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox__image {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+
+  .lightbox__close,
+  .lightbox__prev,
+  .lightbox__next {
+    position: fixed;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+    padding: 0.5rem;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+  }
+
+  .lightbox__close:hover,
+  .lightbox__prev:hover,
+  .lightbox__next:hover {
+    opacity: 1;
+  }
+
+  .lightbox__close {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .lightbox__prev {
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lightbox__next {
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 768px) {
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

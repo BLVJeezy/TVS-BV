@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import StatCounter from '../components/StatCounter.astro';
+import CTABanner from '../components/CTABanner.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const services = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-2.16Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-2.16Z"/></svg>`,
+    title: 'Luchtverwarming',
+    description: 'Professionele plaatsing en onderhoud van luchtverwarmingssystemen voor woningen en bedrijven in Limburg. Uniek vakmanschap in de regio.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 11h7"/></svg>`,
+    title: 'Airco',
+    description: 'Installatie van kwalitatieve aircosystemen van topmerken: LG, Daikin, Mitsubishi, Samsung en GREE. Voor verkoeling én verwarming.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>`,
+    title: 'Ventilatie',
+    description: 'Installatie van ventilatiesystemen type C en D voor een gezond binnenklimaat en optimale luchtkwaliteit in uw woning.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"/><path d="M18 9a3 3 0 0 0-3-3H6"/><path d="M18 18a3 3 0 0 1-3 3H6"/><path d="M18 13H6"/></svg>`,
+    title: 'Sanitair & Badkamer',
+    description: 'Volledige badkamerrenovaties van A tot Z, nieuwe sanitaire installaties en loodgieterij. Kwaliteitswerk met erkende materialen.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: 'Elektriciteit',
+    description: 'Volledige elektrische installaties conform AREI-reglementen. Van nieuwbouw tot renovatie, inclusief keuring en attesten.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10C7 21 3 17 3 12V6z"/></svg>`,
+    title: 'Warmtepomp',
+    description: 'Plaatsing van warmtepompen en warmtepompboilers voor duurzame verwarming. Lagere energiekosten en minder CO₂-uitstoot.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
+    title: 'Vloerverwarming',
+    description: 'Installatie van vloerverwarmingssystemen voor een gelijkmatige warmteverdeling en comfortabel woonklimaat in uw woning.',
+    href: '/diensten',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+    title: "Bewakingscamera's",
+    description: "Installatie van professionele bewakingssystemen van Reolink en UniFi Protect voor optimale beveiliging van uw eigendom.",
+    href: '/diensten',
+  },
+];
+
+const uspItems = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    title: 'Vakmanschap',
+    text: 'Meer dan 10 jaar vakkennis en toewijding in elk project.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    title: 'Kwaliteit',
+    text: 'Uitsluitend hoogwaardige materialen van erkende merken.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10C7 21 3 17 3 12V6z"/></svg>`,
+    title: 'Veiligheid',
+    text: 'Alle werken conform wettelijke normen en veiligheidseisen.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: '24/7 bereikbaar',
+    text: 'Altijd bereikbaar voor dringende vragen en planning.',
+  },
+];
+
+const whyItems = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10C7 21 3 17 3 12V6z"/></svg>`,
+    title: 'Veiligheid voorop',
+    text: 'Bij TVS BV staat veiligheid centraal. Al onze installaties worden uitgevoerd conform de geldende normen (AREI, gaswetgeving) en worden grondig getest voor oplevering.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    title: 'Kwaliteit gegarandeerd',
+    text: 'Wij werken uitsluitend met materialen van erkende fabrikanten. Elke installatie krijgt onze volledige aandacht en wordt afgewerkt tot in de puntjes.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    title: 'Vakmanschap',
+    text: 'Met meer dan 10 jaar ervaring brengen wij vakkennis, precisie en doordachte oplossingen naar elk project — groot of klein.',
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Klant uit Hasselt',
+    location: 'Hasselt, Limburg',
+    quote: 'TVS BV heeft onze badkamer van A tot Z gerenoveerd. Strak werk, nette afwerking en correcte communicatie van begin tot einde. Wij zijn zeer tevreden.',
+    rating: 5,
+  },
+  {
+    name: 'Klant uit Genk',
+    location: 'Genk, Limburg',
+    quote: 'De airco-installatie werd snel en professioneel uitgevoerd. Thomas legde alles goed uit en de prijs was meer dan eerlijk. Absolute aanrader!',
+    rating: 5,
+  },
+  {
+    name: 'Klant uit Sint-Truiden',
+    location: 'Sint-Truiden, Limburg',
+    quote: 'Luchtverwarming geplaatst door TVS BV. Zeer deskundig team, punctueel en het resultaat overtreft onze verwachtingen.',
+    rating: 5,
+  },
+];
+---
+<BaseLayout
+  title="TVS BV – Totaaltechnieken in Hasselt & Limburg"
+  description="TVS BV is uw specialist voor luchtverwarming, airco, sanitair, elektriciteit en warmtepompen in Hasselt en Limburg."
+  canonical="https://tvs-bv.be/"
+>
+  <Hero
+    title="Uw totaaltechnicus in Hasselt & Limburg"
+    subtitle="Luchtverwarming · Airco · Sanitair · Elektriciteit · Warmtepomp"
+    ctaPrimary={{ label: 'Gratis offerte aanvragen', href: '/contact' }}
+    ctaSecondary={{ label: 'Bekijk onze realisaties', href: '/realisaties' }}
+    fullHeight={true}
+  />
+
+  <!-- USP Bar -->
+  <section class="usp-bar" aria-label="Onze kernwaarden">
+    <div class="container usp-bar__grid">
+      {uspItems.map(item => (
+        <div class="usp-bar__item">
+          <div class="usp-bar__icon" aria-hidden="true" set:html={item.icon} />
+          <div>
+            <strong class="usp-bar__title">{item.title}</strong>
+            <p class="usp-bar__text">{item.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Onze Diensten</h2>
+        <p class="section-subtitle">Van luchtverwarming tot bewakingscamera's — wij zijn uw totaaltechnicus voor elk project in Hasselt en Limburg.</p>
+      </div>
+      <div class="services-grid">
+        {services.map(service => (
+          <ServiceCard
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+            href={service.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <StatCounter />
+
+  <!-- Why TVS BV -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Waarom TVS BV?</h2>
+        <p class="section-subtitle">Wij combineren vakmanschap met een persoonlijke aanpak voor elk project.</p>
+      </div>
+      <div class="why-grid">
+        {whyItems.map(item => (
+          <div class="why-item">
+            <div class="why-item__icon" aria-hidden="true" set:html={item.icon} />
+            <h3 class="why-item__title">{item.title}</h3>
+            <p class="why-item__text">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Quote -->
+  <section class="quick-quote">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Snelle offerte aanvraag</h2>
+        <p class="section-subtitle">Vul het formulier in en wij contacteren u zo snel mogelijk voor een vrijblijvende offerte.</p>
+      </div>
+      <div class="quick-quote__form">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Wat onze klanten zeggen</h2>
+        <p class="section-subtitle">Tevreden klanten zijn ons grootste compliment.</p>
+      </div>
+      <div class="testimonials-grid">
+        {testimonials.map(t => (
+          <TestimonialCard
+            name={t.name}
+            location={t.location}
+            quote={t.quote}
+            rating={t.rating}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Klaar om samen te werken?"
+    buttonLabel="Contacteer ons nu"
+    buttonHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .usp-bar {
+    background-color: var(--color-grey-light);
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-grey-mid);
+  }
+
+  .usp-bar__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .usp-bar__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .usp-bar__icon :global(svg) {
+    stroke: var(--color-accent);
+  }
+
+  .usp-bar__title {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .usp-bar__text {
+    font-size: 0.875rem;
+    color: var(--color-grey-text);
+    line-height: 1.5;
+  }
+
+  .services-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .why-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-white);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .why-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem;
+    border-radius: var(--radius);
+    background-color: var(--color-grey-light);
+  }
+
+  .why-item__icon :global(svg) {
+    stroke: var(--color-accent);
+  }
+
+  .why-item__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .why-item__text {
+    font-size: 0.9rem;
+    color: var(--color-grey-text);
+    line-height: 1.7;
+  }
+
+  .quick-quote {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-grey-light);
+  }
+
+  .quick-quote__form {
+    max-width: 760px;
+  }
+
+  .testimonials-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-white);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1100px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .usp-bar__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .why-grid,
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .usp-bar__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

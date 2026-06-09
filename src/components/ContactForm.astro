@@ -1,0 +1,190 @@
+---
+---
+<div class="contact-form-wrap">
+  <form action="#" method="POST" class="contact-form" novalidate>
+    <div class="contact-form__hp" aria-hidden="true">
+      <label for="website">Website (laat leeg)</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="contact-form__row">
+      <div class="contact-form__field">
+        <label for="naam" class="contact-form__label">Naam <span aria-hidden="true">*</span></label>
+        <input
+          type="text"
+          id="naam"
+          name="naam"
+          class="contact-form__input"
+          placeholder="Uw volledige naam"
+          required
+          autocomplete="name"
+        />
+      </div>
+      <div class="contact-form__field">
+        <label for="email" class="contact-form__label">E-mail <span aria-hidden="true">*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="contact-form__input"
+          placeholder="uw@emailadres.be"
+          required
+          autocomplete="email"
+        />
+      </div>
+    </div>
+
+    <div class="contact-form__row">
+      <div class="contact-form__field">
+        <label for="telefoon" class="contact-form__label">Telefoon</label>
+        <input
+          type="tel"
+          id="telefoon"
+          name="telefoon"
+          class="contact-form__input"
+          placeholder="+32 ..."
+          autocomplete="tel"
+        />
+      </div>
+      <div class="contact-form__field">
+        <label for="dienst" class="contact-form__label">Service</label>
+        <select id="dienst" name="dienst" class="contact-form__select">
+          <option value="">Kies een dienst</option>
+          <option value="luchtverwarming">Luchtverwarming</option>
+          <option value="airco">Airco</option>
+          <option value="ventilatie">Ventilatie</option>
+          <option value="sanitair">Sanitair &amp; Badkamer</option>
+          <option value="elektriciteit">Elektriciteit (AREI)</option>
+          <option value="warmtepomp">Warmtepomp</option>
+          <option value="vloerverwarming">Vloerverwarming</option>
+          <option value="camera">Bewakingscamera's</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="contact-form__field">
+      <label for="bericht" class="contact-form__label">Bericht <span aria-hidden="true">*</span></label>
+      <textarea
+        id="bericht"
+        name="bericht"
+        class="contact-form__textarea"
+        rows="5"
+        placeholder="Beschrijf uw project of vraag..."
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn contact-form__submit">
+      Verstuur aanvraag
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 2 11 13M22 2 15 22 11 13 2 9z"/>
+      </svg>
+    </button>
+
+    <p class="contact-form__note">* Verplichte velden. Uw gegevens worden nooit gedeeld met derden.</p>
+  </form>
+</div>
+
+<style>
+  .contact-form-wrap {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-mid);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+  }
+
+  .contact-form__hp {
+    display: none;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .contact-form__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .contact-form__label span {
+    color: var(--color-accent);
+  }
+
+  .contact-form__input,
+  .contact-form__select,
+  .contact-form__textarea {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-grey-mid);
+    border-radius: var(--radius);
+    font-family: var(--font-base);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    width: 100%;
+  }
+
+  .contact-form__input:focus,
+  .contact-form__select:focus,
+  .contact-form__textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
+  }
+
+  .contact-form__textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .contact-form__submit {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border: 2px solid var(--color-accent);
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .contact-form__submit:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .contact-form__note {
+    font-size: 0.775rem;
+    color: var(--color-grey-text);
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .contact-form-wrap {
+      padding: 1.5rem;
+    }
+    .contact-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

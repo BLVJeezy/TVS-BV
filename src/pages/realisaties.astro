@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import CTABanner from '../components/CTABanner.astro';
+---
+<BaseLayout
+  title="Realisaties – TVS BV | Projecten in Hasselt & Limburg"
+  description="Bekijk onze gerealiseerde projecten: luchtverwarming, airco, sanitair, elektriciteit en meer in Hasselt en Limburg."
+  canonical="https://tvs-bv.be/realisaties"
+>
+  <Hero
+    title="Onze Realisaties"
+    subtitle="Een greep uit onze afgeronde projecten"
+  />
+
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Projectgalerij</h2>
+        <p class="section-subtitle">Filter op categorie en klik op een foto voor een vergroot beeld.</p>
+      </div>
+      <GalleryGrid />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Heeft u een project?"
+    buttonLabel="Contacteer ons"
+    buttonHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .gallery-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+</style>
