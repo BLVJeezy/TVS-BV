@@ -4,18 +4,37 @@ const {
   subtitle,
   ctaPrimary,
   ctaSecondary,
+  ctaCall,
+  image,
   fullHeight = false,
 } = Astro.props;
 ---
-<section class:list={['hero', { 'hero--full': fullHeight }]}>
+<section
+  class:list={['hero', { 'hero--full': fullHeight, 'hero--has-image': !!image }]}
+  style={image ? `--hero-bg: url('${image}')` : ''}
+>
   <div class="hero__overlay"></div>
   <div class="container hero__content">
     <h1 class="hero__title">{title}</h1>
     {subtitle && <p class="hero__subtitle">{subtitle}</p>}
-    {(ctaPrimary || ctaSecondary) && (
+    {(ctaPrimary || ctaSecondary || ctaCall) && (
       <div class="hero__actions">
+        {ctaCall && (
+          <a href={ctaCall.href} class="btn hero__btn-call">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            {ctaCall.label}
+          </a>
+        )}
         {ctaPrimary && (
           <a href={ctaPrimary.href} class="btn hero__btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
             {ctaPrimary.label}
           </a>
         )}
@@ -51,11 +70,30 @@ const {
     min-height: 80vh;
   }
 
+  .hero--has-image {
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
   .hero__overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(26, 86, 219, 0.25) 0%, transparent 60%);
     pointer-events: none;
+  }
+
+  .hero--has-image .hero__overlay {
+    background: linear-gradient(
+      105deg,
+      rgba(10, 31, 66, 0.88) 0%,
+      rgba(15, 45, 94, 0.72) 50%,
+      rgba(10, 31, 66, 0.45) 100%
+    );
+  }
+
+  .hero:not(.hero--has-image) .hero__overlay {
+    background: radial-gradient(ellipse at 70% 50%, rgba(26, 86, 219, 0.25) 0%, transparent 60%);
   }
 
   .hero__content {
@@ -63,7 +101,7 @@ const {
     z-index: 1;
     padding-top: 4rem;
     padding-bottom: 4rem;
-    max-width: 760px;
+    max-width: 780px;
   }
 
   .hero__title {
@@ -72,27 +110,60 @@ const {
     color: var(--color-white);
     line-height: 1.15;
     margin-bottom: 1.25rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   }
 
   .hero__subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     color: var(--color-grey-light);
     margin-bottom: 2.25rem;
     max-width: 580px;
-    line-height: 1.6;
+    line-height: 1.65;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
   }
 
   .hero__actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.875rem;
     flex-wrap: wrap;
+    align-items: center;
   }
 
+  /* Rode "Bel Nu" knop — oogvanger */
+  .hero__btn-call {
+    background-color: #dc2626;
+    color: var(--color-white);
+    border: 2px solid #dc2626;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45);
+    animation: pulse-red 2.5s infinite;
+  }
+
+  .hero__btn-call:hover {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(220, 38, 38, 0.55);
+    animation: none;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45); }
+    50%       { box-shadow: 0 4px 28px rgba(220, 38, 38, 0.75); }
+  }
+
+  /* Witte "Boek een afspraak" knop */
   .hero__btn-primary {
     background-color: var(--color-white);
     color: var(--color-primary);
     border: 2px solid var(--color-white);
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
   }
 
   .hero__btn-primary:hover {
