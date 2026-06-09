@@ -6,14 +6,23 @@ const {
   ctaSecondary,
   ctaCall,
   image,
+  imageAlt = 'TVS BV – HVAC technicus aan het werk',
   fullHeight = false,
 } = Astro.props;
 ---
-<section
-  class:list={['hero', { 'hero--full': fullHeight, 'hero--has-image': !!image }]}
-  style={image ? `--hero-bg: url('${image}')` : ''}
->
-  <div class="hero__overlay"></div>
+<section class:list={['hero', { 'hero--full': fullHeight }]}>
+  {image && (
+    <img
+      src={image}
+      alt={imageAlt}
+      class="hero__bg-img"
+      loading="eager"
+      fetchpriority="high"
+      width="1920"
+      height="1080"
+    />
+  )}
+  <div class:list={['hero__overlay', { 'hero__overlay--photo': !!image }]}></div>
   <div class="container hero__content">
     <h1 class="hero__title">{title}</h1>
     {subtitle && <p class="hero__subtitle">{subtitle}</p>}
@@ -52,14 +61,6 @@ const {
   .hero {
     position: relative;
     background-color: var(--color-primary);
-    background-image:
-      repeating-linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.03) 0px,
-        rgba(255, 255, 255, 0.03) 1px,
-        transparent 1px,
-        transparent 40px
-      );
     min-height: 380px;
     display: flex;
     align-items: center;
@@ -70,43 +71,53 @@ const {
     min-height: 80vh;
   }
 
-  .hero--has-image {
-    background-image: var(--hero-bg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  /* Echte img tag als achtergrond – altijd zichtbaar */
+  .hero__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    z-index: 0;
   }
 
   .hero__overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
-  }
-
-  .hero--has-image .hero__overlay {
-    /* Twee lagen: eerste een donkere kleurlaag, dan een richting-gradient
-       zodat de foto goed zichtbaar blijft rechts maar de tekst links altijd leesbaar is */
+    /* Fallback patroon zonder foto */
     background:
-      linear-gradient(
-        to right,
-        rgba(10, 31, 66, 0.92) 0%,
-        rgba(10, 31, 66, 0.75) 45%,
-        rgba(10, 31, 66, 0.35) 100%
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.15) 0%,
-        rgba(0, 0, 0, 0.3) 100%
+      radial-gradient(ellipse at 70% 50%, rgba(26, 86, 219, 0.25) 0%, transparent 60%),
+      repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 40px
       );
   }
 
-  .hero:not(.hero--has-image) .hero__overlay {
-    background: radial-gradient(ellipse at 70% 50%, rgba(26, 86, 219, 0.25) 0%, transparent 60%);
+  /* Overlay wanneer er een foto is: sterke verduistering + richting-gradient */
+  .hero__overlay--photo {
+    background:
+      linear-gradient(
+        to right,
+        rgba(10, 31, 66, 0.90) 0%,
+        rgba(10, 31, 66, 0.72) 45%,
+        rgba(10, 31, 66, 0.38) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.10) 0%,
+        rgba(0, 0, 0, 0.30) 100%
+      );
   }
 
   .hero__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     padding-top: 4rem;
     padding-bottom: 4rem;
     max-width: 780px;
@@ -118,7 +129,7 @@ const {
     color: var(--color-white);
     line-height: 1.15;
     margin-bottom: 1.25rem;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
   }
 
   .hero__subtitle {
@@ -127,7 +138,7 @@ const {
     margin-bottom: 2.25rem;
     max-width: 580px;
     line-height: 1.65;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
   }
 
   .hero__actions {
@@ -146,7 +157,7 @@ const {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45);
+    box-shadow: 0 4px 18px rgba(220, 38, 38, 0.5);
     animation: pulse-red 2.5s infinite;
   }
 
@@ -154,13 +165,13 @@ const {
     background-color: #b91c1c;
     border-color: #b91c1c;
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(220, 38, 38, 0.55);
+    box-shadow: 0 6px 24px rgba(220, 38, 38, 0.65);
     animation: none;
   }
 
   @keyframes pulse-red {
-    0%, 100% { box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45); }
-    50%       { box-shadow: 0 4px 28px rgba(220, 38, 38, 0.75); }
+    0%, 100% { box-shadow: 0 4px 18px rgba(220, 38, 38, 0.5); }
+    50%       { box-shadow: 0 4px 30px rgba(220, 38, 38, 0.8); }
   }
 
   /* Witte "Boek een afspraak" knop */
@@ -178,5 +189,19 @@ const {
     background-color: var(--color-grey-light);
     border-color: var(--color-grey-light);
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 600px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero__btn-call,
+    .hero__btn-primary,
+    :global(.btn-outline) {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>
