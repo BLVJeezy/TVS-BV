@@ -56,96 +56,90 @@ const ogUrl = canonical || 'https://tvs-bv.be/';
     </main>
     <Footer />
 
-    <!-- Mobiele sticky CTA-balk (alleen zichtbaar op mobiel) -->
-    <div class="mobile-cta-bar" role="complementary" aria-label="Snel bellen of afspraak maken">
-      <a href="tel:+32488453816" class="mobile-cta-bar__btn mobile-cta-bar__btn--call">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- Mobiele zwevende pill-knoppen (alleen zichtbaar op mobiel) -->
+    <div class="mobile-pills" role="complementary" aria-label="Snel bellen of afspraak maken">
+      <a href="tel:+32488453816" class="mobile-pill mobile-pill--call">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
         </svg>
-        <span class="mobile-cta-bar__label">
-          <strong>Bel 24/7</strong>
-          <small>+32 488 45 38 16</small>
-        </span>
+        <span>Bel 24/7</span>
       </a>
-      <a href="/contact" class="mobile-cta-bar__btn mobile-cta-bar__btn--appt">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <a href="/contact" class="mobile-pill mobile-pill--appt">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
           <line x1="16" y1="2" x2="16" y2="6"/>
           <line x1="8" y1="2" x2="8" y2="6"/>
           <line x1="3" y1="10" x2="21" y2="10"/>
         </svg>
-        <span class="mobile-cta-bar__label">
-          <strong>Maak afspraak</strong>
-          <small>Gratis offerte</small>
-        </span>
+        <span>Maak afspraak</span>
       </a>
     </div>
   </body>
 </html>
 
 <style>
-  /* Body krijgt ruimte voor de mobiele balk */
+  .mobile-pills {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     :global(body) {
-      padding-bottom: 72px;
+      padding-bottom: 90px;
     }
-  }
 
-  .mobile-cta-bar {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2000;
-    height: 72px;
-    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.18);
-  }
-
-  @media (max-width: 768px) {
-    .mobile-cta-bar {
+    .mobile-pills {
       display: flex;
+      gap: 0.75rem;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      width: calc(100% - 2.5rem);
+      max-width: 420px;
+      /* glassmorphism container — subtle lift */
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.22));
     }
   }
 
-  .mobile-cta-bar__btn {
+  .mobile-pill {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     color: #ffffff;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: filter 0.15s ease;
-  }
-
-  .mobile-cta-bar__btn:active {
-    filter: brightness(0.9);
-  }
-
-  .mobile-cta-bar__btn--call {
-    background-color: #dc2626;
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .mobile-cta-bar__btn--appt {
-    background-color: #1a56db;
-  }
-
-  .mobile-cta-bar__label {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-  }
-
-  .mobile-cta-bar__label strong {
-    font-size: 0.9rem;
     font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.875rem 1rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .mobile-cta-bar__label small {
-    font-size: 0.7rem;
-    opacity: 0.85;
+  .mobile-pill:active {
+    transform: scale(0.96);
+  }
+
+  .mobile-pill--call {
+    background-color: #dc2626;
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.5);
+  }
+
+  .mobile-pill--call:hover {
+    box-shadow: 0 6px 22px rgba(220, 38, 38, 0.65);
+    transform: translateY(-2px);
+  }
+
+  .mobile-pill--appt {
+    background-color: #1a56db;
+    box-shadow: 0 4px 16px rgba(26, 86, 219, 0.45);
+  }
+
+  .mobile-pill--appt:hover {
+    box-shadow: 0 6px 22px rgba(26, 86, 219, 0.6);
+    transform: translateY(-2px);
   }
 </style>
